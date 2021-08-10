@@ -1,0 +1,85 @@
+---
+title: "Branching with RMarkdown and LaTeX"
+output:
+  pdf_document: default
+params:
+  is_handout: TRUE
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+
+```{r title, include=(!params$is_handout & knitr::is_latex_output())}
+knitr::asis_output('
+\\begin{center}\\begin{Huge}
+MY NOTES
+\\end{Huge}\\end{center}
+')
+```
+
+### Introduction
+
+Trying to replicate the Branching feature of LyX with R. This is the one thing that's really holding me back from transitioning to RMarkdown for my class work. With help from the Twitter community, it's possible!
+
+### Let's see
+
+Here is a question: What is half of $4x$?
+
+```{r q1_ans, include=(!params$is_handout & knitr::is_latex_output())}
+knitr::asis_output('
+The answer is 
+
+\\begin{eqnarray*}
+\\frac{4x}{2} 
+  &= \\frac{4}{2}x \\\\
+  &= 2x
+\\end{eqnarray*}
+
+')
+```
+
+```{r blank_space_5cm, include=(params$is_handout & knitr::is_latex_output())}
+knitr::asis_output('\\vspace{5cm}')
+```
+
+Fill in this table:
+
+```{r q2_blank_tbl, include=(params$is_handout & knitr::is_latex_output())}
+knitr::asis_output('
+\\begin{tabular}{|c|c|}
+\\hline 
+
+$a$ & $b$ \\tabularnewline
+\\hline 
+
+$c$ &  \\tabularnewline
+\\hline 
+
+\\end{tabular}
+\\vspace{5cm}
+')
+```
+
+```{r q2_filled_tbl, include=(!params$is_handout & knitr::is_latex_output())}
+knitr::asis_output('
+\\begin{tabular}{|c|c|}
+\\hline 
+
+$a$ & $b$ \\tabularnewline
+\\hline 
+
+$c$ & $\\mathbf{d}$ \\tabularnewline
+\\hline 
+
+\\end{tabular}
+
+
+')
+```
+
+
+### Final comments
+
+How does it work? The parameter `is_handout` in the YAML is combined with `knitr::is_latex_output()` as the `include=` code chunk option. The only downside is that there are lots of extra backslashes, no syntax highlighting, and no WYSIWYM pretties, but it works!
