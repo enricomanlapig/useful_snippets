@@ -3,7 +3,7 @@ title: "Branching with RMarkdown and LaTeX"
 output:
   pdf_document: default
 params:
-  is_handout: TRUE
+  is_handout: FALSE
 ---
 
 ```{r setup, include=FALSE}
